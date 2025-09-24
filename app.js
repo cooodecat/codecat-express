@@ -18,6 +18,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+// Serve root-level images directory at /images
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

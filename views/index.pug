@@ -19,21 +19,21 @@ block content
             margin: 40px 0;
         }
         .play-btn {
-            background: linear-gradient(45deg, #D2691E, #FF8C00);
-            border: 3px solid #c0c0c0;
+            background: linear-gradient(45deg, #2e7d32, #66bb6a);
+            border: 3px solid #1b5e20;
             border-radius: 25px;
             padding: 15px 60px;
             font-size: 32px;
             font-weight: bold;
-            color: white;
+            color: #f0fff4;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-            box-shadow: 0 8px 20px rgba(210, 105, 30, 0.2);
+            box-shadow: 0 8px 20px rgba(27, 94, 32, 0.35);
             cursor: pointer;
             transition: all 0.3s;
         }
         .play-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 12px 25px rgba(210, 105, 30, 0.3);
+            box-shadow: 0 12px 25px rgba(27, 94, 32, 0.45);
         }
         .stages-container {
             max-width: 1200px;
@@ -89,7 +89,13 @@ block content
             border-radius: 8px;
             transition: transform 0.3s;
         }
+        /* No-frame variant for full-bleed image card */
+        .stage-content.no-frame { background: transparent; border: none; padding: 0; min-height: 0; }
+        .stage-content.no-frame .stage-image { width: 100%; height: 200px; max-width: none; border-radius: 12px; display: block; object-fit: cover; }
         .stage-content:hover .stage-image { transform: scale(1.05); }
+        /* Card-less variant: only image clickable */
+        .stage-card.no-frame { background: transparent; border: none; padding: 0; box-shadow: none; }
+        .stage-card.no-frame .stage-cover { width: 100%; height: 200px; display: block; border-radius: 12px; object-fit: cover; }
         .stage-placeholder {
             width: 100%;
             height: 150px;
@@ -127,14 +133,19 @@ block content
 
     .stages-container
         each stageNum in [1,2,3,4,5,6]
-            .stage-card
-                .stage-header Stage.
-                    | #{stageNum}
-                .stage-content(onclick=`window.open('https://example.com/stage${stageNum}', '_blank')`)
-                    .stage-placeholder
-                        | 이미지를 추가하세요
-                        br
-                        | (클릭하면 링크로 이동)
+            if stageNum === 6
+                .stage-card.no-frame
+                    a(href='https://github.com/KJ-9th-NMM-Team2/wheretoput', target='_blank', rel='noopener noreferrer')
+                        img.stage-cover(src='/images/wheretoput.png', alt='어따놀래 - 우리집 꾸미기 시뮬레이터', onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'300\' height=\'200\'><rect width=\'100%\' height=\'100%\' fill=\'%230b3d2e\'/><text x=\'50%\' y=\'50%\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'white\' font-size=\'18\'>wheretoput</text></svg>';")
+            else
+                .stage-card
+                    .stage-header Stage.
+                        | #{stageNum}
+                    .stage-content(onclick=`window.open('https://example.com/stage${stageNum}', '_blank')`)
+                        .stage-placeholder
+                            | 이미지를 추가하세요
+                            br
+                            | (클릭하면 링크로 이동)
 
     script.
         function openLink(url) { window.open(url, '_blank'); }
