@@ -10,39 +10,43 @@ block content
         }
         body {
             font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #f0f0f0, #e5e5e5);
+            background:
+                radial-gradient(1200px 600px at 20% -10%, rgba(255,255,255,0.7), transparent 60%),
+                radial-gradient(900px 500px at 100% 0%, rgba(255,255,255,0.6), transparent 60%),
+                linear-gradient(180deg, #fdfcff, #eef5ff);
+            color: #1f2937;
             min-height: 100vh;
             overflow-x: auto;
         }
-        .play-section {
-            text-align: center;
-            margin: 40px 0;
-        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 24px; }
+        .hero { text-align: center; padding: 32px 0 8px; }
+        .hero h1 { font-size: 40px; letter-spacing: -0.02em; margin: 0; color: #0f172a; }
+        .hero p { margin-top: 8px; color: #475569; }
+        .play-section { text-align: center; margin: 20px 0 32px; }
         .play-btn {
-            background: linear-gradient(45deg, #2e7d32, #66bb6a);
-            border: 3px solid #1b5e20;
-            border-radius: 25px;
-            padding: 15px 60px;
-            font-size: 32px;
+            background: linear-gradient(45deg, #34d399, #60a5fa);
+            border: 0;
+            border-radius: 14px;
+            padding: 14px 28px;
+            font-size: 24px;
             font-weight: bold;
-            color: #f0fff4;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-            box-shadow: 0 8px 20px rgba(27, 94, 32, 0.35);
+            color: #ffffff;
+            box-shadow: 0 10px 24px rgba(96, 165, 250, 0.35);
             cursor: pointer;
             transition: all 0.3s;
         }
         .play-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 12px 25px rgba(27, 94, 32, 0.45);
+            box-shadow: 0 16px 32px rgba(96, 165, 250, 0.45);
         }
         .stages-container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 30px;
+            padding: 0 24px 40px;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            margin-bottom: 50px;
+            gap: 24px;
+            margin-bottom: 24px;
         }
         .stage-card {
             background: linear-gradient(145deg, #ffffff, #f5f5f5);
@@ -94,16 +98,18 @@ block content
         .stage-content.no-frame .stage-image { width: 100%; height: 200px; max-width: none; border-radius: 12px; display: block; object-fit: cover; }
         .stage-content:hover .stage-image { transform: scale(1.05); }
         /* Card-less variant: only image clickable */
-        .stage-card.no-frame { background: transparent; border: none; padding: 0; box-shadow: none; }
+        .stage-card.no-frame { background: #ffffff; border: none; padding: 0; box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06); border-radius: 16px; overflow: hidden; }
         .stage-card.no-frame a { display: block; -webkit-tap-highlight-color: transparent; }
         .stage-card.no-frame .stage-cover {
             width: 100%;
             height: auto;
             aspect-ratio: 16 / 9;
             display: block;
-            border-radius: 12px;
+            border-radius: 0;
             object-fit: cover;
+            transition: transform 0.35s ease;
         }
+        .stage-card.no-frame:hover .stage-cover { transform: scale(1.015); }
         .stage-placeholder {
             width: 100%;
             height: 150px;
@@ -129,10 +135,15 @@ block content
         .free-btn:hover { transform: scale(1.05); }
         .stage-description { color: #333; font-size: 14px; text-align: center; margin-top: 10px; font-weight: 500; }
         .stars { text-align: right; color: #ffd700; font-size: 20px; margin-top: 10px; }
+        @media (max-width: 1024px) {
+            .stages-container { grid-template-columns: repeat(2, 1fr); }
+        }
         @media (max-width: 768px) {
             .stages-container { grid-template-columns: 1fr; gap: 16px; padding: 0 16px; }
-            .play-section { margin: 24px 0; }
-            .play-btn { font-size: 24px; padding: 12px 20px; width: 100%; max-width: 320px; }
+            .hero { padding: 20px 0 8px; }
+            .hero h1 { font-size: 28px; }
+            .play-section { margin: 16px 0 24px; }
+            .play-btn { font-size: 20px; padding: 12px 18px; width: 100%; max-width: 320px; }
             .stage-card.no-frame .stage-cover { aspect-ratio: 4 / 3; }
         }
         @media (prefers-reduced-motion: reduce) {
@@ -141,7 +152,7 @@ block content
 
     // Page content
     .play-section
-        button.play-btn PLAY
+        button.play-btn 정글 9기
 
     .stages-container
         each stageNum in [1,2,3,4,5,6]
