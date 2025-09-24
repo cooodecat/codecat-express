@@ -95,7 +95,15 @@ block content
         .stage-content:hover .stage-image { transform: scale(1.05); }
         /* Card-less variant: only image clickable */
         .stage-card.no-frame { background: transparent; border: none; padding: 0; box-shadow: none; }
-        .stage-card.no-frame .stage-cover { width: 100%; height: 200px; display: block; border-radius: 12px; object-fit: cover; }
+        .stage-card.no-frame a { display: block; -webkit-tap-highlight-color: transparent; }
+        .stage-card.no-frame .stage-cover {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 16 / 9;
+            display: block;
+            border-radius: 12px;
+            object-fit: cover;
+        }
         .stage-placeholder {
             width: 100%;
             height: 150px;
@@ -122,9 +130,13 @@ block content
         .stage-description { color: #333; font-size: 14px; text-align: center; margin-top: 10px; font-weight: 500; }
         .stars { text-align: right; color: #ffd700; font-size: 20px; margin-top: 10px; }
         @media (max-width: 768px) {
-            .stages-container { grid-template-columns: 1fr; gap: 20px; }
-            .nav { display: none; }
-            .delete-modal { margin: 20px; padding: 30px; }
+            .stages-container { grid-template-columns: 1fr; gap: 16px; padding: 0 16px; }
+            .play-section { margin: 24px 0; }
+            .play-btn { font-size: 24px; padding: 12px 20px; width: 100%; max-width: 320px; }
+            .stage-card.no-frame .stage-cover { aspect-ratio: 4 / 3; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .stage-content:hover .stage-image { transform: none; }
         }
 
     // Page content
@@ -133,19 +145,38 @@ block content
 
     .stages-container
         each stageNum in [1,2,3,4,5,6]
-            if stageNum === 6
-                .stage-card.no-frame
-                    a(href='https://github.com/KJ-9th-NMM-Team2/wheretoput', target='_blank', rel='noopener noreferrer')
-                        img.stage-cover(src='/images/wheretoput.png', alt='어따놀래 - 우리집 꾸미기 시뮬레이터', onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'300\' height=\'200\'><rect width=\'100%\' height=\'100%\' fill=\'%230b3d2e\'/><text x=\'50%\' y=\'50%\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'white\' font-size=\'18\'>wheretoput</text></svg>';")
+햣             - var href, src, fallbackLabel;
+            if stageNum === 1
+                - href = 'https://github.com/KJ-31/witple';
+                - src = '/images/witple.png';
+                - fallbackLabel = 'witple';
+            else if stageNum === 2
+                - href = 'https://github.com/MW-1st';
+                - src = '/images/stage2.png';
+                - fallbackLabel = 'Stage 2';
+            else if stageNum === 3
+                - href = 'https://github.com/teamKimtaerin';
+                - src = '/images/stage3.png';
+                - fallbackLabel = 'Stage 3';
+            else if stageNum === 4
+                - href = 'https://github.com/cooodecat';
+                - src = '/images/otto.png';
+                - fallbackLabel = 'otto';
+            else if stageNum === 5
+                - href = 'https://github.com/Team-Ooleem';
+                - src = '/images/stage5.png';
+                - fallbackLabel = 'Stage 5';
+            else if stageNum === 6
+                - href = 'https://github.com/KJ-9th-NMM-Team2/wheretoput';
+                - src = '/images/wheretoput.png';
+                - fallbackLabel = 'wheretoput';
             else
-                .stage-card
-                    .stage-header Stage.
-                        | #{stageNum}
-                    .stage-content(onclick=`window.open('https://example.com/stage${stageNum}', '_blank')`)
-                        .stage-placeholder
-                            | 이미지를 추가하세요
-                            br
-                            | (클릭하면 링크로 이동)
+                - href = 'https://example.com/stage' + stageNum;
+                - src = '/images/stage' + stageNum + '.png';
+                - fallbackLabel = 'Stage ' + stageNum;
+            .stage-card.no-frame
+                a(href=href, target='_blank', rel='noopener noreferrer')
+                    img.stage-cover(src=src, alt=fallbackLabel, onerror=`this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'300\\' height=\\'200\\'><rect width=\\'100%\\' height=\\'100%\\' fill=\\'%230b3d2e\\'/><text x=\\'50%\\' y=\\'50%\\' dominant-baseline=\\'middle\\' text-anchor=\\'middle\\' fill=\\'white\\' font-size=\\'18\\'>${fallbackLabel}</text></svg>'`)
 
     script.
         function openLink(url) { window.open(url, '_blank'); }
